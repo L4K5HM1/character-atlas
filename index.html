@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Character Atlas — Character Comparison Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<div class="hero">
+  <div class="eyebrow">Bleach · Naruto · One Piece</div>
+  <h1 class="title">CHARACTER<br>ATLAS</h1>
+  <p class="subtitle">Every universe measures power differently, so this tracks each one on its own terms: Bleach's
+    reiatsu sensor hexagon, Naruto's official databook skill parameters, and One Piece's Haki triangle. Pick a series
+    below to narrow the categories to that world, then click a name's form pills to watch the numbers shift as they
+    power up.</p>
+  <div class="legend">
+    <span><span class="dot" style="background:var(--gold)"></span>Official databook stat (Bleach "SOULs" captains · Naruto Databooks I–III)</span>
+    <span><span class="dot" style="background:var(--muted-2)"></span>Fan-consensus estimate (power-ups, later arcs, and all of One Piece — no numeric databook exists for it)</span>
+  </div>
+</div>
+
+<div class="controls">
+  <div class="controls-row">
+    <input class="search" id="searchInput" type="text" placeholder="Search a character…">
+    <select id="sortSel">
+      <option value="power-desc">Power ↓</option>
+      <option value="power-asc">Power ↑</option>
+      <option value="name-asc">Name A–Z</option>
+    </select>
+  </div>
+  <div class="controls-row">
+    <span class="controls-label">Universe</span>
+    <div class="chip-row" id="seriesChips"></div>
+  </div>
+  <div class="controls-row" id="factionRow">
+    <span class="controls-label" id="factionRowLabel">Faction</span>
+    <div class="chip-row" id="factionChips"></div>
+  </div>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<footer>
+  DATA NOTES — <b style="color:var(--muted)">Bleach</b> base-form stats for the Soul Society–arc captains are drawn
+  from official combat-power scores published in Bleach: Official Character Book "SOULs," visualized as a six-axis
+  radar (STR / DEF / SPD / TEC / INT / POW). &nbsp;
+  <b style="color:var(--muted)">Naruto</b> stats are the official Ninjutsu / Taijutsu / Genjutsu / Intelligence /
+  Strength / Speed / Stamina / Hand Seals "Skill Parameters" from Naruto Databooks I–III where available (each
+  scored 0–5 in 0.5 increments, shown as ten-tick meters), with later power-ups estimated in the same format. &nbsp;
+  <b style="color:var(--muted)">One Piece</b> has no official numeric databook, so every entry is a fan-consensus
+  estimate — shown as a Haki triangle (Observation / Armament / Conqueror's) plus the same six core stats as bars
+  instead of a radar. The one universal number across all three — the "Power Level" gauge — is a custom cross-series
+  scale meant purely for comparing characters between universes; everything else uses each series' own system.
+  This is a living dataset — edit the DATA / NARUTO / ONE_PIECE arrays in this file's source to match your own
+  reading of each story, or ask to have a new series added.
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
