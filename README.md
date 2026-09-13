@@ -1,54 +1,61 @@
 # Character Atlas
 
-An interactive character explorer for **Bleach, Naruto, and One Piece**, built with HTML, CSS, and vanilla JavaScript.
+A responsive character explorer for **Bleach, Naruto, and One Piece**, with form-specific comparisons and transparent ranking notes.
 
-## Features
+**48 characters · 68 forms · zero runtime dependencies**
 
-- Search characters by name and filter by series or faction.
-- Sort by power rating or character name.
-- Switch between character forms and transformations.
-- Explore custom SVG radar and Haki charts, plus Naruto databook-style stat meters.
-- View series-specific stats in a responsive card layout.
+## What it does
+
+- Search names with accent-insensitive matching; filter by universe and faction.
+- Compare named forms, with the strongest listed form selected by default.
+- Sort within each universe without implying a universal cross-series power scale.
+- Read an explanation of every placement and its limitations.
+- Use keyboard-accessible controls, visible focus indicators and mobile layouts.
 
 ## Run locally
 
-Open `index.html` in a modern browser. No installation, build step, API key, or backend is required. Google Fonts requires an internet connection; fallback fonts are provided.
+Open `index.html` in a modern browser. No installation, API key, build step or network connection is required for the dashboard. Reading links require internet access.
 
-Alternatively, from this directory run:
+Or serve the directory:
 
 ```sh
 python3 -m http.server 8000
 ```
 
-Then open http://localhost:8000 in your browser.
+Open [localhost:8000](http://localhost:8000).
 
-## Project structure
+## Rankings and accuracy
 
-| File | Purpose |
+Scores are **editorial estimates**, not official power levels or fight probabilities. Comparisons consider the named form, story portrayal, demonstrated abilities and constraints. Close scores are uncertain; some ties are intentional. The dataset is a curated roster, not an exhaustive encyclopedia.
+
+The scope ends at Bleach chapter 686, Naruto chapter 700, and One Piece chapter 1057. The interface contains spoilers within those boundaries. See [methodology, corrections and sources](docs/RANKING-METHODOLOGY.md).
+
+The revised dataset removes unverified databook totals, Haki percentages and bounties. It corrects several mislabeled forms and obvious progression inconsistencies. Exact numeric ordering remains interpretive.
+
+## Code structure
+
+| File | Responsibility |
 | --- | --- |
-| `index.html` | Page structure and controls |
-| `assets/styles.css` | Theme, card layout, and responsive styles |
-| `assets/app.js` | Character data, chart rendering, filtering, sorting, and interaction state |
+| `assets/data.js` | Character records, forms, estimates and context |
+| `assets/logic.js` | Pure search, filtering, form selection and sorting |
+| `assets/app.js` | Rendering, input events and focus preservation |
+| `assets/styles.css` | Responsive presentation and interaction states |
+| `tests/rankings.test.cjs` | Data and behavior regressions |
 
-## Implementation
+The browser loads three plain scripts in order. Data and comparison logic also export CommonJS modules for Node's built-in test runner. No framework or bundler is needed. Selections stay in memory and reset on reload; nothing is sent to a server.
 
-Character records and forms are bundled directly in JavaScript. A shared state object tracks search, series, faction, and sorting; separate objects track selected forms and expanded stats. Rendering functions generate the visible cards and charts. SVG geometry is calculated directly without a charting library.
+## Verification
 
-## Data and scope
+With Node.js 20 or newer:
 
-This is an unofficial fan project. The dataset includes entries labeled official and entries labeled estimated; cross-series scores are interpretive rather than a canonical shared scale. Source labels are part of the supplied dataset and have not been independently verified. Character and series names belong to their respective owners.
+```sh
+npm test
+```
 
-Selections are held in memory and reset when the page reloads. There is no account system or remote database.
+Seven automated tests cover schema constraints, selected ranking relationships, invalid form selection, grouped sorting, search and HTML escaping. A Chromium check also exercised filters, keyboard form selection, focus retention, reset, empty results and overflow at widths of 320, 390, 768 and 1440 pixels. These checks do not establish canon accuracy or constitute a complete accessibility audit.
 
-## Manual review
+## Contributing
 
-1. Search for a character, then clear the search.
-2. Switch series and verify the faction options update.
-3. Try each sorting option.
-4. Switch a character form and inspect its updated stats.
-5. Enter an unmatched search and verify the empty state.
-6. Check the layout at desktop and narrow mobile widths.
+For a ranking correction, provide the character, exact form, chapter or episode reference, relevant conditions and proposed comparison. Update the explanation alongside the number. For code changes, run the tests and check keyboard and mobile behavior.
 
-## Author
-
-[Lakshmi Muppana](https://github.com/L4K5HM1)
+Independent fan project by [Lakshmi Muppana](https://github.com/L4K5HM1). Character and series rights belong to their respective creators.
